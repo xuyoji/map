@@ -1,38 +1,4 @@
-#x, y fromat
-node = (
-1, 4,
-2, 5,
-3, 7,
-4, 9,
-2, 8,
-3, 2,
-9, 4,
-8, 8,
-0, 4,
-10, 7
-)
-
-#index of pairs of nodes, represent  edges
-edge =(
-0, 1,
-0, 3,
-0, 5,
-0, 6,
-1, 2,
-1, 6,
-1, 7,
-2, 4,
-2, 7,
-3, 8,
-3, 6,
-4, 9,
-4, 5,
-6, 8,
-6, 9,
-7, 8,
-8, 9,
-)
-
+from data import *
 
 class Map():
     def __init__(self, node, edge):
@@ -94,7 +60,7 @@ class Map():
             path.append(former)
             node = former
         return path
-
+    
 
 instance = Map(node, edge)
 instance.get_min_path()
