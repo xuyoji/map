@@ -59,7 +59,7 @@ class Map():
         node = node1
         path = []
         while node != None:
-            pfath.append(node + 1)
+            path.append(node + 1)
             node = self.path_mtx[node][node2]
         path.append(node2 + 1)
         return path
