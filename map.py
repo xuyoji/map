@@ -8,7 +8,7 @@ class Map():
         for i in range(0, len(node), 2):
             temp = (node[i], node[i+1])
             self.dict[i >>1] = (temp,[])
-        self.nodes_num = len(edge) >> 1
+        self.nodes_num = len(node) >> 1
         self.dis_mtx = [[float('inf') for j in range(self.nodes_num)] for i in range(self.nodes_num)]
         self.path_mtx = [[None for j in range(self.nodes_num)] for i in range(self.nodes_num)]
         
@@ -22,11 +22,12 @@ class Map():
             self.dict[node2][1].append((node1, distance))
             self.dis_mtx[node1][node2] = distance
             self.dis_mtx[node2][node1] = distance
-            self.path_mtx[node1][node2] = node1
-            self.path_mtx[node2][node1] = node2
+            self.path_mtx[node1][node2] = None
+            self.path_mtx[node2][node1] = None
         
         self.current_location = None
         self.destination = None
+       
         
         
     def set_destination(self, destination):
@@ -51,18 +52,20 @@ class Map():
                         self.path_mtx[i][j] = k
         
     def get_one_path(self, node1, node2):
+        node1 -= 1
+        node2 -= 1
         assert node1 in self.dict
         assert node2 in self.dict
-        node = node2
-        path = [node2]
-        while node != node1:
-            former = self.path_mtx[node1][node]
-            path.append(former)
-            node = former
+        node = node1
+        path = []
+        while node != None:
+            pfath.append(node + 1)
+            node = self.path_mtx[node][node2]
+        path.append(node2 + 1)
         return path
     
 
 instance = Map(node, edge)
 instance.get_min_path()
-path = instance.get_one_path(2, 8)
+path = instance.get_one_path(1, 6)
 print(path)
