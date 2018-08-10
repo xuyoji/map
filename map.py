@@ -1,5 +1,3 @@
-from data import *
-
 class Map():
     def __init__(self, node, edge):
         #data structure output in this case
@@ -64,8 +62,4 @@ class Map():
         path.append(node2 + 1)
         return path
     
-
-instance = Map(node, edge)
-instance.get_min_path()
-path = instance.get_one_path(1, 6)
-print(path)
+    
