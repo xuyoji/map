@@ -41,7 +41,8 @@ class case_no_file(base_case):
     '''文件或目录不存在'''
 
     def test(self, handler):
-        return not os.path.exists(handler.full_path)
+        print(handler.path, handler.path.startswith('/getpath'))
+        return (not handler.path.startswith('/getpath') and not os.path.exists(handler.full_path))
 
     def act(self, handler):
         raise ServerException("'{0}' not found".format(handler.path))
@@ -82,16 +83,16 @@ class case_get_path(base_case):
     first_act  = True
     
     def test(self, handler):
-        return handler.path.startwith("getpath") and \
-            len(handler.path[7:].split('-')) == 2
+        return handler.path.startswith("/getpath") and \
+            len(handler.path[8:].split('-')) == 3
         
     def act(self, handler):
-        [node1, node2] = [int(_) for _ in handler.path[7:].split('-')]
-        if first_act:
-            aMap.get_min_path()
+        [node1, node2] = [int(_) for _ in handler.path[9:].split('-')]
+        if self.first_act:
+            self.aMap.get_min_path()
             first_act = False
-        path = aMap.get_one_path(node1, node2)
-        handle_text(handler, path)
+        path = self.aMap.get_one_path(node1, node2)
+        self.handle_text(handler, path)
         
         
 #-------------------------------------------------------------------------------
@@ -124,11 +125,11 @@ class RequestHandler(BaseHTTPRequestHandler):
     否则返回错误页面
     '''
 
-    Cases = [case_get_path,
-             case_no_file(),
+    Cases = [case_get_path(),
              case_cgi_file(),
              case_existing_file(),
              case_directory_index_file(),
+             case_no_file(),
              case_always_fail()]
 
     # 错误页面模板
@@ -167,7 +168,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.send_header("Content-Length", str(len(content)))
         self.end_headers()
-        content = bytes(content, 'utf-8')
+        if  type(content) is str:
+            content = bytes(content, 'utf-8')
         self.wfile.write(content)
 
 #-------------------------------------------------------------------------------

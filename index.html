@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html -->
+<html lang="zh-cn"><style type="text/css" id="night-mode-pro-style"></style><link type="text/css" rel="stylesheet" id="night-mode-pro-link"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="origin">
+<title>每天一个linux命令（60）：scp命令 - peida - 博客园</title>
+<link type="text/css" rel="stylesheet" href="./test_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./test_files/bundle-LessIsMore.css">
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="./test_files/bundle-LessIsMore-mobile.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/peida/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/peida/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/peida/wlwmanifest.xml">
+<script async="" src="./test_files/analytics.js.download"></script><script type="text/javascript" src="./test_files/encoder.js.download"></script><script src="./test_files/jquery-2.2.0.min.js.download"></script>
+<script type="text/javascript">var currentBlogApp = 'peida', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="./test_files/blog-common.js.download" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/peida/">竹子-博客(.NET/Java/Linux/架构/管理/敏捷)</a></div>
+<div class="subtitle">思索、感悟、践行！</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/peida/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/peida">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/peida/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="http://www.cnblogs.com/peida/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-199&nbsp;
+文章-0&nbsp;
+评论-805&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/peida/archive/2013/03/15/2960802.html">每天一个linux命令（60）：scp命令</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p style="text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp是secure&nbsp;copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读&nbsp;read&nbsp;only&nbsp;system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然&nbsp;rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</span></p><p style="text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;Times New Roman&#39;; ">1．</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令格式：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">s</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">cp</span>&nbsp;<span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">[参数]</span>&nbsp;<span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">[原路径]</span>&nbsp;<span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">[目标路径]</span></p><p style="text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;Times New Roman&#39;; ">2．</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令功能：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp是&nbsp;secure&nbsp;copy的缩写,&nbsp;scp是linux系统下基于ssh登陆进行安全的远程文件拷贝命令。linux的scp命令可以在linux服务器之间复制文件和目录</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">。</span></p><p style="text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;Times New Roman&#39;; ">3．</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令参数：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-1&nbsp;&nbsp;强制scp命令使用协议ssh1&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-2&nbsp;&nbsp;强制scp命令使用协议ssh2&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-4&nbsp;&nbsp;强制scp命令只使用IPv4寻址&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-6&nbsp;&nbsp;强制scp命令只使用IPv6寻址&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-B&nbsp;&nbsp;使用批处理模式（传输过程中不询问传输口令或短语）&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-C&nbsp;&nbsp;允许压缩。（将-C标志传递给ssh，从而打开压缩功能）&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-p&nbsp;保留原文件的修改时间，访问时间和访问权限。&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-q&nbsp;&nbsp;不显示传输进度条。&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-r&nbsp;&nbsp;递归复制整个目录。&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-v&nbsp;详细方式显示输出。scp和ssh(1)会显示出整个过程的调试信息。这些信息用于调试连接，验证和配置问题。&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-c&nbsp;cipher&nbsp;&nbsp;以cipher将数据传输进行加密，这个选项将直接传递给ssh。&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-F&nbsp;ssh_config&nbsp;&nbsp;指定一个替代的ssh配置文件，此参数直接传递给ssh。&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-i&nbsp;identity_file&nbsp;&nbsp;从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh。&nbsp;&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-l&nbsp;limit&nbsp;&nbsp;限定用户所能使用的带宽，以Kbit/s为单位。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-o&nbsp;ssh_option&nbsp;&nbsp;如果习惯于使用ssh_config(5)中的参数传递方式，&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-P&nbsp;port&nbsp;&nbsp;注意是大写的P,&nbsp;port是指定数据传输用到的端口号&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">-S&nbsp;program&nbsp;&nbsp;指定加密传输时所使用的程序。此程序必须能够理解ssh(1)的选项。</span></p><p style="text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;Times New Roman&#39;; ">4．</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">使用实例：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp命令的实际应用</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">概述</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">：&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从本地服务器复制到远程服务器</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">：</span>&nbsp;</p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">(1)&nbsp;复制文件：&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令格式：&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;local_file&nbsp;remote_username@remote_ip:remote_folder&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">或者&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;local_file&nbsp;remote_username@remote_ip:remote_file&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">或者&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;local_file&nbsp;remote_ip:remote_folder&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">或者&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;local_file&nbsp;remote_ip:remote_file&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">第1,2个指定了用户名，命令执行后需要输入用户密码，第1个仅指定了远程的目录，文件名字不变，第2个指定了文件名&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">第3,4个没有指定用户名，命令执行后需要输入用户名和密码，第3个仅指定了远程的目录，文件名字不变，第4个指定了文件名&nbsp;&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">(2)&nbsp;复制目录：&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令格式：&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;-r&nbsp;local_folder&nbsp;remote_username@remote_ip:remote_folder&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">或者&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">	</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;-r&nbsp;local_folder&nbsp;remote_ip:remote_folder&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">第1个指定了用户名，命令执行后需要输入用户密码；&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">第2个没有指定用户名，命令执行后需要输入用户名和密码；</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">&nbsp;&nbsp;</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从远程服务器复制到本地服务器</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">：</span>&nbsp;</p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从远程复制到本地的scp命令与上面的命令雷同，只要将从本地复制到远程的命令后面2个参数互换顺序就行了。</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">实例1：</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从远处复制文件到本地目录</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz&nbsp;/opt/soft/</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">输出：</span></p><p style="margin-left: 21pt; text-indent: 21pt; margin-bottom: 0pt; margin-top: 0pt;"></p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div><div>[root@localhost&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;cd&nbsp;/opt/soft/</span><span style="color: #008000;"><br></span>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;80072<br>drwxr-xr-x&nbsp;12&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;fms3.5<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;17:58&nbsp;fms4.5<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;10-30&nbsp;17:15&nbsp;jdk1.6.0_16<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:27&nbsp;jdk1.6.0_16.bak<br>-rwxr-xr-x&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;81871260&nbsp;2009-12-21&nbsp;jdk-6u16-linux-x64.bin<br>drwxrwxrwx&nbsp;&nbsp;2&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;01:16&nbsp;mysql<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;setup_file<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:23&nbsp;tomcat6.0.32<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;2012-08-14&nbsp;tomcat_7.0<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;scp&nbsp;root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz&nbsp;/opt/soft/</span><span style="color: #008000;"><br></span>root@192.168.120.204's&nbsp;password:&nbsp;<br>nginx-0.5.38.tar.gz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;479KB&nbsp;478.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;80556<br>drwxr-xr-x&nbsp;12&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;fms3.5<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;17:58&nbsp;fms4.5<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;10-30&nbsp;17:15&nbsp;jdk1.6.0_16<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:27&nbsp;jdk1.6.0_16.bak<br>-rwxr-xr-x&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;81871260&nbsp;2009-12-21&nbsp;jdk-6u16-linux-x64.bin<br>drwxrwxrwx&nbsp;&nbsp;2&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;01:16&nbsp;mysql<br>-rw-r--r--&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;490220&nbsp;03-15&nbsp;09:11&nbsp;nginx-0.5.38.tar.gz<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;setup_file<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:23&nbsp;tomcat6.0.32<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;2012-08-14&nbsp;tomcat_7.0<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span></div><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div></div><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">说明：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从1</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">92.168.120.204</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">机器上的</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">/opt/soft/</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">的目录中下载</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">nginx-0.5.38.tar.gz&nbsp;</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">文件到本地</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">/opt/soft/</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">目录中</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">实例2：</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从远处复制到本地</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;-r&nbsp;root@192.168.120.204:/opt/soft/mongodb&nbsp;/opt/soft/</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">输出：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div><div>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;80556<br>drwxr-xr-x&nbsp;12&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;fms3.5<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;17:58&nbsp;fms4.5<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;10-30&nbsp;17:15&nbsp;jdk1.6.0_16<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:27&nbsp;jdk1.6.0_16.bak<br>-rwxr-xr-x&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;81871260&nbsp;2009-12-21&nbsp;jdk-6u16-linux-x64.bin<br>drwxrwxrwx&nbsp;&nbsp;2&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;01:16&nbsp;mysql<br>-rw-r--r--&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;490220&nbsp;03-15&nbsp;09:11&nbsp;nginx-0.5.38.tar.gz<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;setup_file<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:23&nbsp;tomcat6.0.32<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;2012-08-14&nbsp;tomcat_7.0<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;scp&nbsp;-r&nbsp;root@192.168.120.204:/opt/soft/mongodb&nbsp;/opt/soft/</span><span style="color: #008000;"><br></span>root@192.168.120.204's&nbsp;password:&nbsp;<br>mongodb-linux-i686-static-1.8.5.tgz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;&nbsp;28MB&nbsp;&nbsp;28.3MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>README&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;731&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>THIRD-PARTY-NOTICES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7866&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongorestore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7753KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongod&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7760KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongoexport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7744KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>bsondump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7737KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongofiles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7748KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongostat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7808KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;5262KB&nbsp;&nbsp;&nbsp;5.1MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;3707KB&nbsp;&nbsp;&nbsp;3.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongoimport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7754KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongodump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7773KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>GNU-AGPL-3.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;&nbsp;34KB&nbsp;&nbsp;33.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;80560<br>drwxr-xr-x&nbsp;12&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;fms3.5<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;17:58&nbsp;fms4.5<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;10-30&nbsp;17:15&nbsp;jdk1.6.0_16<br>drwxr-xr-x&nbsp;10&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:27&nbsp;jdk1.6.0_16.bak<br>-rwxr-xr-x&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;81871260&nbsp;2009-12-21&nbsp;jdk-6u16-linux-x64.bin<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;03-15&nbsp;09:18&nbsp;mongodb<br>drwxrwxrwx&nbsp;&nbsp;2&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;01:16&nbsp;mysql<br>-rw-r--r--&nbsp;&nbsp;1&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;490220&nbsp;03-15&nbsp;09:11&nbsp;nginx-0.5.38.tar.gz<br>drwxr-xr-x&nbsp;&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-21&nbsp;18:40&nbsp;setup_file<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;09-17&nbsp;19:23&nbsp;tomcat6.0.32<br>drwxr-xr-x&nbsp;&nbsp;9&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4096&nbsp;2012-08-14&nbsp;tomcat_7.0<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span></div><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div></div><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">说明：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">从</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">192.168.120.204</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">机器上的</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">/</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">opt/soft/</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">中下载</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">mongodb&nbsp;</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">目录到本地的</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">/opt/soft/</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">目录来。</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">实例3：</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">上传本地文件到远程机器指定目录</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;/opt/soft/nginx-0.5.38.tar.gz&nbsp;root@192.168.120.204:/opt/soft/scptest</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">输出：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div><div>上传前目标机器的目标目录：<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;cd&nbsp;scptest/</span><span style="color: #008000;"><br></span>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;0<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span><br>本地机器上传：<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;scp&nbsp;/opt/soft/nginx-0.5.38.tar.gz&nbsp;root@192.168.120.204:/opt/soft/scptest</span><span style="color: #008000;"><br></span>root@192.168.120.204's&nbsp;password:&nbsp;<br>nginx-0.5.38.tar.gz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;479KB&nbsp;478.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>[root@localhost&nbsp;soft]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span><span style="color: #008000;"><br></span><br>上传后目标机器的目标目录：<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;484<br>-rw-r--r--&nbsp;1&nbsp;root&nbsp;root&nbsp;490220&nbsp;03-15&nbsp;09:25&nbsp;nginx-0.5.38.tar.gz<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span></div><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div></div><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">说明：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="font-size: 10.5pt; font-family: 宋体;">复制本地</span><span style="font-size: 10.5pt; font-family: 宋体;">opt/soft/</span><span style="font-size: 10.5pt; font-family: 宋体;">目录下的文件</span><span style="font-size: 10.5pt; font-family: 宋体;">nginx-0.5.38.tar.gz&nbsp;</span><span style="font-size: 10.5pt; font-family: 宋体;">到远程机器</span><span style="font-size: 10.5pt; font-family: 宋体;">192.168.120.204</span><span style="font-size: 10.5pt; font-family: 宋体;">的</span><span style="font-size: 10.5pt; font-family: 宋体;">opt/soft/scptest</span><span style="font-size: 10.5pt; font-family: 宋体;">目录</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">实例4：</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">上传本地</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">目录</span><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">到远程机器指定目录</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">命令：</span></p><p style="margin-left:42.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">scp&nbsp;-r&nbsp;/opt/soft/mongodb&nbsp;root@192.168.120.204:/opt/soft/scptest</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">输出：</span></p><p style="margin-left:21.0000pt; text-indent:21.0000pt; margin-bottom:0pt; margin-top:0pt; "></p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div><div>上传前目标机器的目标目录：<br>[root@localhost&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;cd&nbsp;/opt/soft/scptest/</span><span style="color: #008000;"><br></span>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;484<br>-rw-r--r--&nbsp;1&nbsp;root&nbsp;root&nbsp;490220&nbsp;03-15&nbsp;09:25&nbsp;nginx-0.5.38.tar.gz<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span><span style="color: #008000;"><br></span>本地机器上传：<br>[root@localhost&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;scp&nbsp;-r&nbsp;/opt/soft/mongodb&nbsp;root@192.168.120.204:/opt/soft/scptest</span><span style="color: #008000;"><br></span>root@192.168.120.204's&nbsp;password:&nbsp;<br>mongodb-linux-i686-static-1.8.5.tgz&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;&nbsp;28MB&nbsp;&nbsp;28.3MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>README&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;731&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>THIRD-PARTY-NOTICES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7866&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongorestore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7753KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongod&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7760KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongoexport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7744KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>bsondump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7737KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongofiles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7748KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongostat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7808KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;5262KB&nbsp;&nbsp;&nbsp;5.1MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;3707KB&nbsp;&nbsp;&nbsp;3.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>mongoimport&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7754KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:01&nbsp;&nbsp;&nbsp;&nbsp;<br>mongodump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;7773KB&nbsp;&nbsp;&nbsp;7.6MB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>GNU-AGPL-3.0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;100%&nbsp;&nbsp;&nbsp;34KB&nbsp;&nbsp;33.7KB/s&nbsp;&nbsp;&nbsp;00:00&nbsp;&nbsp;&nbsp;&nbsp;<br>[root@localhost&nbsp;~]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span><span style="color: #008000;"><br></span><br>上传后目标机器的目标目录：<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;ll</span><span style="color: #008000;"><br></span>总计&nbsp;488<br>drwxr-xr-x&nbsp;3&nbsp;root&nbsp;root&nbsp;&nbsp;&nbsp;4096&nbsp;03-15&nbsp;09:33&nbsp;mongodb<br>-rw-r--r--&nbsp;1&nbsp;root&nbsp;root&nbsp;490220&nbsp;03-15&nbsp;09:25&nbsp;nginx-0.5.38.tar.gz<br>[root@localhost&nbsp;scptest]<span style="color: #008000;">#</span><span style="color: #008000;">&nbsp;</span></div><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a href="javascript:void(0);" onclick="copyCnblogsCode(this)" title="复制代码"><img src="./test_files/copycode.gif" alt="复制代码"></a></span></div></div><p style="margin-left: 21pt; text-indent: 21pt; margin-bottom: 0pt; margin-top: 0pt;"><span style="mso-spacerun:&#39;yes&#39;; font-weight:bold; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">说明：</span></p><p style="margin-bottom:0pt; margin-top:0pt; "><span style="font-size: 10.5pt; font-family: 宋体;"><span class="Apple-tab-span" style="white-space:pre">	</span>&nbsp; &nbsp;&nbsp;上传本地目录</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">&nbsp;/opt/soft/mongodb</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">到远程机器</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">192.168.120.204</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">上</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">/opt/soft/scptest</span><span style="mso-spacerun:&#39;yes&#39;; font-size:10.5000pt; font-family:&#39;宋体&#39;; ">的目录中去</span></p></div><div id="MySignature" style="display: block;"><h2>关注&amp;包养蛀虫：</h2>
+<img src="./test_files/架构未来小图.bmp" alt="架构未来" width="300" height="300">
+
+<img src="./test_files/打赏码.bmp" alt="对你有用，请我喝瓶红牛" width="300" height="300"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/peida/category/309012.html" target="_blank">linux</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/peida/tag/linux/">linux</a>, <a href="http://www.cnblogs.com/peida/tag/linux%E5%91%BD%E4%BB%A4/">linux命令</a>, <a href="http://www.cnblogs.com/peida/tag/%E6%AF%8F%E6%97%A5%E4%B8%80linux%E5%91%BD%E4%BB%A4/">每日一linux命令</a>, <a href="http://www.cnblogs.com/peida/tag/linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/">linux网络命令</a>, <a href="http://www.cnblogs.com/peida/tag/scp%E5%91%BD%E4%BB%A4/">scp命令</a></div>
+<div id="blog_post_info"><div id="green_channel">
+        <a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(2960802,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a>
+            <a id="green_channel_follow" onclick="follow(&#39;0f3e420b-63cf-dd11-9e4d-001cf0cd104b&#39;);" href="javascript:void(0);">关注我</a>
+    <a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a>
+    <a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="./test_files/icon_weibo_24.png" alt=""></a>
+    <a id="green_channel_wechat" href="javascript:void(0);" title="分享至微信" onclick="shareOnWechat()"><img src="./test_files/wechat.png" alt=""></a>
+</div>
+<div id="author_profile">
+    <div id="author_profile_info" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/peida/" target="_blank"><img src="./test_files/20180118195222.png" class="author_avatar" alt=""></a>
+        <div id="author_profile_detail" class="author_profile_info">
+            <a href="http://home.cnblogs.com/u/peida/">peida</a><br>
+            <a href="http://home.cnblogs.com/u/peida/followees">关注 - 3</a><br>
+            <a href="http://home.cnblogs.com/u/peida/followers">粉丝 - 3952</a>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="author_profile_honor"></div>
+    <div id="author_profile_follow">
+                <a href="javascript:void(0);" onclick="follow(&#39;0f3e420b-63cf-dd11-9e4d-001cf0cd104b&#39;);return false;">+加关注</a>
+    </div>
+</div>
+<div id="div_digg">
+    <div class="diggit" onclick="votePost(2960802,&#39;Digg&#39;)">
+        <span class="diggnum" id="digg_count">18</span>
+    </div>
+    <div class="buryit" onclick="votePost(2960802,&#39;Bury&#39;)">
+        <span class="burynum" id="bury_count">0</span>
+    </div>
+    <div class="clear"></div>
+    <div class="diggword" id="digg_tips">
+    </div>
+</div>
+<script type="text/javascript">
+    currentDiggType = 0;
+</script></div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/peida/archive/2013/03/14/2958685.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/peida/archive/2013/03/14/2958685.html" title="发布于2013-03-14 08:31">每天一个linux命令（59）：rcp命令</a><br><a href="http://www.cnblogs.com/peida/archive/2013/03/18/2965369.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/peida/archive/2013/03/18/2965369.html" title="发布于2013-03-18 08:55">每天一个linux命令（61）：wget命令</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-03-15 09:51</span> <a href="http://www.cnblogs.com/peida/">peida</a> 阅读(<span id="post_view_count">286502</span>) 评论(<span id="post_comment_count">7</span>)  <a href="https://i.cnblogs.com/EditPosts.aspx?postid=2960802" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#" onclick="AddToWz(2960802);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=38044,cb_entryId=2960802,cb_blogApp=currentBlogApp,cb_blogUserGuid='0f3e420b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2013/3/15 9:51:00';loadViewCount(cb_entryId);var cb_postType=1;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<!--done-->
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#2636260" class="layer">#1楼</a><a name="2636260" id="comment_anchor_2636260"></a>  <span class="comment_date">2013-03-16 23:44</span> <a id="a_comment_author_2636260" href="http://www.cnblogs.com/cplushua/" target="_blank">VierAmt</a> <a href="http://msg.cnblogs.com/send/VierAmt" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2636260" class="blog_comment_body">不错，非常详细。如果是Linux与Windows交换复制文件，可以安装一个WinSSHD，这样就非常方便了~</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2636260,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2636260,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_2636260_avatar" style="display:none;">http://pic.cnblogs.com/face/274987/20151002111448.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#2988851" class="layer">#2楼</a><a name="2988851" id="comment_anchor_2988851"></a>  <span class="comment_date">2014-07-17 17:52</span> <a id="a_comment_author_2988851" href="http://home.cnblogs.com/u/651837/" target="_blank">530247683</a> <a href="http://msg.cnblogs.com/send/530247683" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2988851" class="blog_comment_body">很喜欢博主的文章，刚刚用豆约翰博客备份专家备份了您的全部博文。</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2988851,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2988851,&#39;Bury&#39;,this)">反对(3)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3040266" class="layer">#3楼</a><a name="3040266" id="comment_anchor_3040266"></a>  <span class="comment_date">2014-10-09 09:28</span> <a id="a_comment_author_3040266" href="http://www.cnblogs.com/renzhe371/" target="_blank">天涯371</a> <a href="http://msg.cnblogs.com/send/%E5%A4%A9%E6%B6%AF371" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3040266" class="blog_comment_body">不错，感谢楼主的分享，不过还是觉得用winscp更方便……</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3040266,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3040266,&#39;Bury&#39;,this)">反对(0)</a></div>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3174765" class="layer">#4楼</a><a name="3174765" id="comment_anchor_3174765"></a>  <span class="comment_date">2015-05-02 21:53</span> <a id="a_comment_author_3174765" href="http://www.cnblogs.com/dotdog/" target="_blank">dotdog</a> <a href="http://msg.cnblogs.com/send/dotdog" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3174765" class="blog_comment_body"><a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3040266" title="查看所回复的评论" onclick="commentManager.renderComments(0,50,3040266);">@</a>
+天涯371<br>文件的属性是怎么样的?有没有变化，还是scp一样吗？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3174765,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3174765,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3174765_avatar" style="display:none;">http://pic.cnblogs.com/face/735541/20150325091138.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3656037" class="layer">#5楼</a><a name="3656037" id="comment_anchor_3656037"></a>  <span class="comment_date">2017-03-30 22:01</span> <a id="a_comment_author_3656037" href="http://www.cnblogs.com/mikusnail/" target="_blank">叫我欧尼酱就行了</a> <a href="http://msg.cnblogs.com/send/%E5%8F%AB%E6%88%91%E6%AC%A7%E5%B0%BC%E9%85%B1%E5%B0%B1%E8%A1%8C%E4%BA%86" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3656037" class="blog_comment_body">原来是有跨服务器的！！！</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3656037,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3656037,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3656037_avatar" style="display:none;">http://pic.cnblogs.com/face/725002/20180718101708.png</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3859267" class="layer">#6楼</a><a name="3859267" id="comment_anchor_3859267"></a>  <span class="comment_date">2017-12-06 15:21</span> <a id="a_comment_author_3859267" href="http://www.cnblogs.com/subFire/" target="_blank">Subfire</a> <a href="http://msg.cnblogs.com/send/Subfire" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3859267" class="blog_comment_body">目录下有很多文件，复制的时候怎么exclude排除指定的几个文件呢？</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3859267,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3859267,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3859267_avatar" style="display:none;">http://pic.cnblogs.com/face/u340240.jpg?id=25220223</span>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#3859293" class="layer">#7楼</a><a name="3859293" id="comment_anchor_3859293"></a><span id="comment-maxId" style="display:none;">3859293</span><span id="comment-maxDate" style="display:none;">2017/12/6 15:41:46</span>  <span class="comment_date">2017-12-06 15:41</span> <a id="a_comment_author_3859293" href="http://www.cnblogs.com/subFire/" target="_blank">Subfire</a> <a href="http://msg.cnblogs.com/send/Subfire" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_3859293" class="blog_comment_body">--exclude杂用呀</div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(3859293,&#39;Digg&#39;,this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(3859293,&#39;Bury&#39;,this)">反对(0)</a></div><span id="comment_3859293_avatar" style="display:none;">http://pic.cnblogs.com/face/u340240.jpg?id=25220223</span>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" onclick="return RefreshCommentList();" id="lnk_RefreshComments" runat="server" clientidmode="Static">刷新评论</a><a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#" onclick="return RefreshPage();">刷新页面</a><a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login(&#39;commentform&#39;);">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="ad_t2"><a href="http://www.ucancode.com/index.htm" target="_blank">【推荐】超50万VC++源码: 大型组态工控、电力仿真CAD与GIS源码库！</a><br><a href="https://www.grapecity.com.cn/developer/spreadjs?utm_source=cnblogs&amp;utm_medium=blogpage&amp;utm_term=bottom&amp;utm_content=SpreadJS&amp;utm_campaign=community" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-T2-Spread&#39;)">【前端】SpreadJS表格控件，可嵌入应用开发的在线Excel</a><br><a href="https://cloud.tencent.com/developer/labs?fromSource=gwzcw.1087957.1087957.1087957" target="_blank" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;T2-T2 - 腾讯云&#39;)">【推荐】如何快速搭建人工智能应用？</a><br></div>
+<div id="opt_under_post"></div>
+<div id="cnblogs_c1" class="c_ad_block"><a href="https://cloud.tencent.com/act/campus?fromSource=gwzcw.1087959.1087959.1087959" target="_blank"><img width="300" height="250" src="./test_files/24442-20180803104321581-581345267.jpg" alt="qcloud" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Link&#39;, &#39;click&#39;, &#39;C1&#39;);"></a></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="https://news.cnblogs.com/n/604093/" target="_blank">又开一家超级旗舰店，OPPO开始讲空间设计了</a><br> ·  <a href="https://news.cnblogs.com/n/604088/" target="_blank">AWS导致GoDaddy数据泄漏 ！ 这次「销售」背锅</a><br> ·  <a href="https://news.cnblogs.com/n/604086/" target="_blank">如何在不同摄像头里识别行人？多层相似度感知CNN网络解析</a><br> ·  <a href="https://news.cnblogs.com/n/604084/" target="_blank">关于阿里基础设施，你要知道的都在这里</a><br> ·  <a href="https://news.cnblogs.com/n/604083/" target="_blank">趣头条回应上市：对此保持开放态度 时间不确认</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="cnblogs_c2" class="c_ad_block"><script async="" src="./test_files/f.txt"></script><ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-4210569241504288" data-ad-slot="4685076975"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/603279/" target="_blank">成为一个有目标的学习者</a><br> ·  <a href="http://kb.cnblogs.com/page/602903/" target="_blank">历史转折中的“杭派工程师”</a><br> ·  <a href="http://kb.cnblogs.com/page/602573/" target="_blank">如何提高代码质量？</a><br> ·  <a href="http://kb.cnblogs.com/page/602486/" target="_blank">在腾讯的八年，我的职业思考</a><br> ·  <a href="http://kb.cnblogs.com/page/602163/" target="_blank">为什么我离开了管理岗位</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><div align="center"><a href="http://www.amazingcounter.com/"><img border="0" src="./test_files/counter.php" alt="frontpage tracking"></a><br><a href="http://www.bestonlinecoupons.com/coupons/hotwire-com.asp"><font color="#7c7c7c" size="2">欢迎你</font></a> <a href="http://www.bestonlinecoupons.com/coupon/travel.asp"><font color="#7c7c7c" size="2">访问本站</font></a></div><div id="profile_block">昵称：<a href="https://home.cnblogs.com/u/peida/">peida</a><br>园龄：<a href="https://home.cnblogs.com/u/peida/" title="入园时间：2008-05-28">10年2个月</a><br>粉丝：<a href="https://home.cnblogs.com/u/peida/followers/">3952</a><br>关注：<a href="https://home.cnblogs.com/u/peida/followees/">3</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="follow(&#39;0f3e420b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div><script>getFollowStatus('0f3e420b-63cf-dd11-9e4d-001cf0cd104b')</script></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" cellspacing="0" cellpadding="0" title="Calendar">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2013/02/01&#39;);return false;">&lt;</a></td><td align="center">2013年3月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar(&#39;2013/04/01&#39;);return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center">24</td><td class="CalOtherMonthDay" align="center">25</td><td class="CalOtherMonthDay" align="center">26</td><td class="CalOtherMonthDay" align="center">27</td><td class="CalOtherMonthDay" align="center">28</td><td align="center">1</td><td class="CalWeekendDay" align="center">2</td></tr><tr><td class="CalWeekendDay" align="center">3</td><td align="center">4</td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/05.html"><u>5</u></a></td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/06.html"><u>6</u></a></td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/07.html"><u>7</u></a></td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/08.html"><u>8</u></a></td><td class="CalWeekendDay" align="center">9</td></tr><tr><td class="CalWeekendDay" align="center">10</td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/11.html"><u>11</u></a></td><td align="center">12</td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/13.html"><u>13</u></a></td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/14.html"><u>14</u></a></td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/15.html"><u>15</u></a></td><td class="CalWeekendDay" align="center">16</td></tr><tr><td class="CalWeekendDay" align="center">17</td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/18.html"><u>18</u></a></td><td align="center">19</td><td align="center">20</td><td align="center">21</td><td align="center">22</td><td class="CalWeekendDay" align="center">23</td></tr><tr><td class="CalWeekendDay" align="center">24</td><td align="center"><a href="http://www.cnblogs.com/peida/archive/2013/03/25.html"><u>25</u></a></td><td align="center">26</td><td align="center">27</td><td align="center">28</td><td align="center">29</td><td class="CalWeekendDay" align="center">30</td></tr><tr><td class="CalWeekendDay" align="center">31</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_shortcut" class="sidebar-block">
+<div class="catListLink">
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/peida/p/" title="我的博客的随笔列表">我的随笔</a></li><li><a href="http://www.cnblogs.com/peida/MyComments.html" title="我发表过的评论列表">我的评论</a></li><li><a href="http://www.cnblogs.com/peida/OtherPosts.html" title="我评论过的随笔列表">我的参与</a></li><li><a href="http://www.cnblogs.com/peida/RecentComments.html" title="我的博客的评论列表">最新评论</a></li><li><a href="http://www.cnblogs.com/peida/tag/" title="我的博客的标签列表">我的标签</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+
+</ul>
+</div>
+</div></div><div id="sidebar_recentposts" class="sidebar-block">
+<div class="catListEssay">
+<h3 class="catListTitle">最新随笔</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/peida/p/8315677.html">1. 你的leader还在考核你的千行代码Bug率吗？</a></li><li><a href="http://www.cnblogs.com/peida/p/4218210.html">2. Maven编译jar出现：无法确定 T 的类型参数的异常的原因和处理方案</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava.html">3. Guava学习笔记目录</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava_Range.html">4. Guava学习笔记：Range</a></li><li><a href="http://www.cnblogs.com/peida/p/EventBus.html">5. Guava学习笔记：EventBus</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava_Cache.html">6. Guava学习笔记：Guava cache</a></li><li><a href="http://www.cnblogs.com/peida/p/3183505.html">7. Guava学习笔记：Guava新集合-Table等</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava_Bimap.html">8. Guava学习笔记：Guava新增集合类型-Bimap</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava_Multimap.html">9. Guava学习笔记：Guava新增集合类型-Multimap</a></li><li><a href="http://www.cnblogs.com/peida/p/Guava_Multiset.html">10. Guava学习笔记：Guava新增集合类型-Multiset</a></li>
+</ul>
+</div>
+</div><div id="sidebar_toptags" class="sidebar-block">
+<div class="catListTag">
+<h3 class="catListTitle">我的标签</h3>
+<ul>
+<li><a href="http://www.cnblogs.com/peida/tag/linux%E5%91%BD%E4%BB%A4/">linux命令</a>(62)</li><li><a href="http://www.cnblogs.com/peida/tag/%E6%AF%8F%E6%97%A5%E4%B8%80linux%E5%91%BD%E4%BB%A4/">每日一linux命令</a>(62)</li><li><a href="http://www.cnblogs.com/peida/tag/linux/">linux</a>(58)</li><li><a href="http://www.cnblogs.com/peida/tag/%E6%95%8F%E6%8D%B7%E4%B8%AA%E4%BA%BA/">敏捷个人</a>(22)</li><li><a href="http://www.cnblogs.com/peida/tag/%E6%95%8F%E6%8D%B7%E7%BB%93%E6%9E%9C%E7%BB%83%E4%B9%A0/">敏捷结果练习</a>(20)</li><li><a href="http://www.cnblogs.com/peida/tag/Guava/">Guava</a>(14)</li><li><a href="http://www.cnblogs.com/peida/tag/Guava%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">Guava学习笔记</a>(14)</li><li><a href="http://www.cnblogs.com/peida/tag/linux%E7%BD%91%E7%BB%9C%E5%91%BD%E4%BB%A4/">linux网络命令</a>(10)</li><li><a href="http://www.cnblogs.com/peida/tag/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>(9)</li><li><a href="http://www.cnblogs.com/peida/tag/linux%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">linux性能分析</a>(5)</li><li><a href="http://www.cnblogs.com/peida/tag/">更多</a></li>
+</ul>
+</div></div><div id="sidebar_categories">
+<div class="catListPostCategory">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(175)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="https://www.cnblogs.com/peida/category/138076.html">.net3.x(WF/Linq/WCF)(12)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="https://www.cnblogs.com/peida/category/138051.html">ASP.NET(11)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="https://www.cnblogs.com/peida/category/496529.html">Go语言</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="https://www.cnblogs.com/peida/category/316903.html">IT人健康(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="https://www.cnblogs.com/peida/category/309011.html">java(22)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="https://www.cnblogs.com/peida/category/177613.html">JavaScript+jQuery(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="https://www.cnblogs.com/peida/category/309012.html">linux(60)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_7" href="https://www.cnblogs.com/peida/category/330971.html">产品设计/用户体验(1)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_8" href="https://www.cnblogs.com/peida/category/406684.html">敏捷个人(33)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_9" href="https://www.cnblogs.com/peida/category/138050.html">设计模式(22)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_10" href="https://www.cnblogs.com/peida/category/138052.html">数据库SQL(5)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_11" href="https://www.cnblogs.com/peida/category/489069.html">系统架构</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_12" href="https://www.cnblogs.com/peida/category/337846.html">项目管理(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_13" href="https://www.cnblogs.com/peida/category/412970.html">重构(2)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catListPostArchive">
+<h3 class="catListTitle">随笔档案<span style="font-size:11px;font-weight:normal">(199)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_1_Link_0" href="https://www.cnblogs.com/peida/archive/2018/01.html">2018年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_1" href="https://www.cnblogs.com/peida/archive/2015/01.html">2015年1月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_2" href="https://www.cnblogs.com/peida/archive/2013/08.html">2013年8月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_3" href="https://www.cnblogs.com/peida/archive/2013/07.html">2013年7月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_4" href="https://www.cnblogs.com/peida/archive/2013/06.html">2013年6月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_5" href="https://www.cnblogs.com/peida/archive/2013/05.html">2013年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_6" href="https://www.cnblogs.com/peida/archive/2013/04.html">2013年4月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_7" href="https://www.cnblogs.com/peida/archive/2013/03.html">2013年3月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_8" href="https://www.cnblogs.com/peida/archive/2013/02.html">2013年2月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_9" href="https://www.cnblogs.com/peida/archive/2013/01.html">2013年1月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_10" href="https://www.cnblogs.com/peida/archive/2012/12.html">2012年12月 (25)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_11" href="https://www.cnblogs.com/peida/archive/2012/11.html">2012年11月 (22)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_12" href="https://www.cnblogs.com/peida/archive/2012/10.html">2012年10月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_13" href="https://www.cnblogs.com/peida/archive/2012/09.html">2012年9月 (20)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_14" href="https://www.cnblogs.com/peida/archive/2012/08.html">2012年8月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_15" href="https://www.cnblogs.com/peida/archive/2011/12.html">2011年12月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_16" href="https://www.cnblogs.com/peida/archive/2011/11.html">2011年11月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_17" href="https://www.cnblogs.com/peida/archive/2011/10.html">2011年10月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_18" href="https://www.cnblogs.com/peida/archive/2011/08.html">2011年8月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_19" href="https://www.cnblogs.com/peida/archive/2011/07.html">2011年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_20" href="https://www.cnblogs.com/peida/archive/2010/07.html">2010年7月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_21" href="https://www.cnblogs.com/peida/archive/2010/06.html">2010年6月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_22" href="https://www.cnblogs.com/peida/archive/2010/05.html">2010年5月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_23" href="https://www.cnblogs.com/peida/archive/2009/05.html">2009年5月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_24" href="https://www.cnblogs.com/peida/archive/2009/04.html">2009年4月 (1)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_25" href="https://www.cnblogs.com/peida/archive/2009/03.html">2009年3月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_26" href="https://www.cnblogs.com/peida/archive/2009/02.html">2009年2月 (5)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_27" href="https://www.cnblogs.com/peida/archive/2008/12.html">2008年12月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_28" href="https://www.cnblogs.com/peida/archive/2008/11.html">2008年11月 (10)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_29" href="https://www.cnblogs.com/peida/archive/2008/10.html">2008年10月 (2)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_30" href="https://www.cnblogs.com/peida/archive/2008/09.html">2008年9月 (3)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_31" href="https://www.cnblogs.com/peida/archive/2008/08.html">2008年8月 (8)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_32" href="https://www.cnblogs.com/peida/archive/2008/07.html">2008年7月 (6)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_33" href="https://www.cnblogs.com/peida/archive/2008/06.html">2008年6月 (15)</a> </li>
+
+<li><a id="CatList_LinkList_1_Link_34" href="https://www.cnblogs.com/peida/archive/2008/05.html">2008年5月 (4)</a> </li>
+
+</ul>
+
+</div>
+
+<div class="catList友情连接">
+<h3 class="catListTitle">友情连接</h3>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	401749
+	</li>
+	<li class="liRank">
+		排名 -	406
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+	<div id="RecentCommentsBlock"><ul>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/peida/archive/2013/04/26/3038503.html#4028613">1. Re:深入理解Java：注解（Annotation）--注解处理器</a></li>
+        <li class="recent_comment_body">学习了，感谢博主的分享。请问，博主，如果我想再springboot中用到我们自定义的注解，怎么让注解在在框架中可用？</li>
+        <li class="recent_comment_author">--行走的老熊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/peida/archive/2013/04/24/3036689.html#4028485">2. Re:深入理解Java：注解（Annotation）自定义注解入门</a></li>
+        <li class="recent_comment_body">Apple怎么获取这个appleName和appleColor的值啊，我答应出来是两个null啊</li>
+        <li class="recent_comment_author">--行走的老熊</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/peida/archive/2012/12/04/2800684.html#4021368">3. Re:每天一个linux命令（30）: chown命令</a></li>
+        <li class="recent_comment_body">好文要顶</li>
+        <li class="recent_comment_author">--菜鸟Alex</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/peida/archive/2012/10/26/2740521.html#4016879">4. Re:每天一个linux命令（5）：rm 命令</a></li>
+        <li class="recent_comment_body">@WF事难懂可以用sudo rm -rf 目录名 删除回收站的文件...</li>
+        <li class="recent_comment_author">--骑都尉</li>
+        <li class="recent_comment_title"><a href="http://www.cnblogs.com/peida/archive/2013/01/08/2850483.html#4008870">5. Re:每天一个linux命令（50）：crontab命令</a></li>
+        <li class="recent_comment_body">@算盘没有安装图形界面工具吧。。...</li>
+        <li class="recent_comment_author">--前方、有光</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="https://www.cnblogs.com/peida/archive/2013/04/24/3036689.html">1. 深入理解Java：注解（Annotation）自定义注解入门(541439)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2012/12/04/2800684.html">2. 每天一个linux命令（30）: chown命令(519053)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html">3. 每天一个linux命令（50）：crontab命令(343597)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/03/18/2965369.html">4. 每天一个linux命令（61）：wget命令(288779)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/03/15/2960802.html">5. 每天一个linux命令（60）：scp命令(286500)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topcommentedposts" class="sidebar-block"><div id="topfeedback_posts_wrap">
+<div class="catListFeedback">
+<h3 class="catListTitle">评论排行榜</h3>
+	<div id="TopFeedbackPostsBlock"><ul><li><a href="https://www.cnblogs.com/peida/archive/2013/04/26/3038503.html">1. 深入理解Java：注解（Annotation）--注解处理器(53)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2012/12/05/2803591.html">2. 每天一个linux命令目录(53)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2012/10/23/2734829.html">3. 每天一个linux命令(1)：ls命令(34)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/04/24/3036689.html">4. 深入理解Java：注解（Annotation）自定义注解入门(33)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html">5. 每天一个linux命令（50）：crontab命令(26)</a></li></ul></div>
+</div>
+</div></div><div id="sidebar_topdiggedposts" class="sidebar-block"><div id="topdigg_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">推荐排行榜</h3>
+<div id="TopDiggPostsBlock"><ul><li><a href="https://www.cnblogs.com/peida/archive/2012/12/05/2803591.html">1. 每天一个linux命令目录(122)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/04/24/3036689.html">2. 深入理解Java：注解（Annotation）自定义注解入门(99)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/04/26/3038503.html">3. 深入理解Java：注解（Annotation）--注解处理器(69)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2012/10/23/2734829.html">4. 每天一个linux命令(1)：ls命令(46)</a></li><li><a href="https://www.cnblogs.com/peida/archive/2013/01/08/2850483.html">5. 每天一个linux命令（50）：crontab命令(39)</a></li></ul></div>
+</div></div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2018 peida
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript" src="./test_files/1910329.js.download"></script><a href="https://www.51.la/?comId=1910329" title="51.La 网站流量统计系统" target="_blank"><span style="display:inline-block;background-color:#EF5350;color:#fff;padding:2px 5px;font-family:arial;font-size:12px;font-weight:bold;">51La</span></a>
+<noscript><a href="http://www.51.la/?1910329" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/1910329.asp" style="border:none" />统计代码</a></noscript>
+
+<script src="./test_files/stat.php" language="JavaScript" charset="gb2312"></script><script src="./test_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1121896" target="_blank" title="站长统计">站长统计</a>
+
+<script src="./test_files/stat(1).php" language="JavaScript"></script><script src="./test_files/core(1).php" charset="utf-8" type="text/javascript"></script><script src="./test_files/online_v3.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=943648" target="_blank">站长统计</a>
+<!--PageEndHtml Block End-->
+
+
+<div id="chrome_websiteIP" class="chrome_websiteIP_right">101.37.225.65</div></body></html>
