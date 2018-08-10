@@ -1,5 +1,6 @@
 #-*- coding:utf-8 -*-
-import sys, os, BaseHTTPServer, subprocess
+import sys, os, subprocess
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 #-------------------------------------------------------------------------------
 
@@ -21,7 +22,7 @@ class base_case(object):
             msg = "'{0}' cannot be read: {1}".format(full_path, msg)
             handler.handle_error(msg)
             
-    def handle_text(self, handler, content)
+    def handle_text(self, handler, content):
         text = str(content)
         handler.send_content(text)
     
@@ -73,11 +74,11 @@ class case_existing_file(base_case):
         self.handle_file(handler, handler.full_path)
 
 #-------------------------------------------------------------------------------
-class case_get_path(base_case)
+class case_get_path(base_case):
     '''返回请求的两点之间的路径'''
-    from data import *
-    from map import *
-    aMap = map(node, edge)
+    import data
+    import mapHandler
+    aMap = mapHandler.Map(data.node, data.edge)
     first_act  = True
     
     def test(self, handler):
@@ -117,7 +118,7 @@ class case_always_fail(base_case):
 
 #-------------------------------------------------------------------------------
 
-class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class RequestHandler(BaseHTTPRequestHandler):
     '''
     请求路径合法则返回相应处理
     否则返回错误页面
@@ -166,11 +167,12 @@ class RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         self.send_header("Content-type", "text/html")
         self.send_header("Content-Length", str(len(content)))
         self.end_headers()
+        content = bytes(content, 'utf-8')
         self.wfile.write(content)
 
 #-------------------------------------------------------------------------------
 
 if __name__ == '__main__':
-    serverAddress = ('', 8080)
-    server = BaseHTTPServer.HTTPServer(serverAddress, RequestHandler)
+    serverAddress = ('', 8081)
+    server = HTTPServer(serverAddress, RequestHandler)
     server.serve_forever()
