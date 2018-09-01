@@ -1,3 +1,4 @@
+from newData import *
 class Map():
     def __init__(self, node, edge):
         #data structure output in this case
@@ -11,8 +12,8 @@ class Map():
         self.path_mtx = [[None for j in range(self.nodes_num)] for i in range(self.nodes_num)]
         
         for j in range(0, len(edge), 2):
-            node1 = edge[j]
-            node2 = edge[j + 1]
+            node1 = edge[j] - 1
+            node2 = edge[j + 1] - 1
             assert node1 in self.dict
             assert node2 in self.dict
             distance = self.get_distance(node1, node2)
@@ -20,8 +21,8 @@ class Map():
             self.dict[node2][1].append((node1, distance))
             self.dis_mtx[node1][node2] = distance
             self.dis_mtx[node2][node1] = distance
-            self.path_mtx[node1][node2] = None
-            self.path_mtx[node2][node1] = None
+            self.path_mtx[node1][node2] = node2
+            self.path_mtx[node2][node1] = node1
         
         self.current_location = None
         self.destination = None
@@ -52,14 +53,18 @@ class Map():
     def get_one_path(self, node1, node2):
         node1 -= 1
         node2 -= 1
-        assert node1 in self.dict
-        assert node2 in self.dict
-        node = node1
-        path = []
-        while node != None:
-            path.append(node + 1)
-            node = self.path_mtx[node][node2]
-        path.append(node2 + 1)
+        path = [node1 + 1]
+        def get_path(self, node1, node2, path):
+            if(node1 == node2):
+                return
+            if(self.path_mtx[node1][node2]==node2):
+               path.append(node2 + 1)
+            else:
+                get_path(self, node1, self.path_mtx[node1][node2], path)
+                get_path(self, self.path_mtx[node1][node2], node2, path)        
+        get_path(self, node1, node2, path)
         return path
     
-    
+instance = Map(node, edge)
+instance.get_min_path()
+print(instance.get_one_path(1, 14))

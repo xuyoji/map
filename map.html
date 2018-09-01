@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test</title>
+</head>
+<body>
+
+<p>test</p>
+<p id="demo"></p>
+<script>
 //x, y format
 var node = [
  178, 936,
@@ -47,6 +58,7 @@ var edge =[
 3, 29,
 4, 5,
 4, 8,
+4, 30,
 5, 6,
 5, 12,
 6, 7,
@@ -82,6 +94,7 @@ var edge =[
 22, 27,
 23, 24,
 25, 26,
+25, 30,
 26, 28,
 27, 28
 ];
@@ -143,13 +156,19 @@ var MapHandler = {
     get_one_path : function(node1, node2){
         node1 -= 1;
         node2 -= 1;
-        var node = node1;
-        var path = [];
-        while(node != null){
-            path.push(node + 1);
-            node = this.path_mtx[node][node2];
+        var path = [node1 + 1];
+        var that = this;
+        function get_path(that, node1, node2, path){
+            if(node1 == node2)
+                return;
+            if (that.path_mtx[node1][node2] == null)
+                path.push(node2+1);
+            else{
+                get_path(that, node1, that.path_mtx[node1][node2], path);
+                get_path(that, that.path_mtx[node1][node2], node2, path);
+            }
         }
-        path.push(node2 + 1);
+        get_path(that, node1, node2, path);
         return path;
     }
 }
@@ -157,3 +176,9 @@ var MapHandler = {
 MapHandler.init(node, edge);
 MapHandler.get_min_path();
 console.log(MapHandler.get_one_path(1, 14));
+
+
+</script>
+
+</body>
+</html>
