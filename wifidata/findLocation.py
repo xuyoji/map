@@ -89,8 +89,20 @@ for name in range(1, 31):
                 if _ not  in a:
                     valueList[i - 1] -= 0.025 * (3 - b.index(_))
             if a[:2] == b[:2]:
-                if 0.8 < (maxNum / secondNum) / (maxTestNum / secondTestNum)  <1.25:
-                    valueList[i - 1] += 0.1
+                temp = (maxNum / secondNum) / (maxTestNum / secondTestNum)
+                if 0.6 <temp <1.67:
+                    print('hit1!')
+                    if temp > 1:
+                        temp /= 1
+                        valueList[i - 1] += 3**(temp-0.6) - 1
+            if (a[0] == b[1] and a[1] ==b[0]):
+                temp1 = secondTestNum/(maxTestNum+secondTestNum)
+                temp2 = secondNum / (maxNum+ secondNum)
+                if temp1 > 0.35 and temp2 > 0.35:
+                    temp = min(temp1, temp2) / max(temp1, temp2)
+                    if temp  > 0.6:
+                        print('hit2!')
+                        valueList[i - 1] += 3**(temp-0.6) - 1
         #print([int(i*10000) for i in valueList][14:16])
         result = valueList.index(max(valueList)) + 1
         secodResult = valueList.index(heapq.nlargest(2, valueList)[1]) + 1
